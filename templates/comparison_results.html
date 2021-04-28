@@ -6,8 +6,8 @@
         TODO: Replace the hard-coded cities and date below with data from the 
         server.
     #}
-    <h1>Weather in [CITY1] and [CITY2]</h1>
-    <p>[TODAYS_DATE]</p>
+    <h1>Weather in {{ city1 }} and {{ city2 }}</h1>
+    <p>{{ date }}</p>
 
 
     {#
@@ -15,19 +15,44 @@
         Replace 'F' with the appropriate units.
     #}
     <p>
-        It is [NUM_DEGREES] [UNITS] [WARMER/COLDER] in [CITY1] than in [CITY2] today.
+    {% if temp1 - temp2 > 0 %}
+        It is {{ abs_difference_in_temp }}° {{ units_letter }} warmer in {{ city1 }} than in {{ city2 }} today.
+    {% elif temp1 - temp2 < 0 %}
+        It is {{ abs_difference_in_temp }}° {{ units_letter }} colder in {{ city1 }} than in {{ city2 }} today.
+    {% else %}
+        The temperature is the same in both locations.
+    {% endif %}
     </p>
 
     <p>
-        The humidity in [CITY1] is [AMOUNT] [GREATER/LESS] than in [CITY2].
+    {% if humidity1 - humidity2 > 0 %}
+        The humidity in {{ city1 }} is {{ abs_difference_in_humidity }} grater than in {{ city2 }}.
+    {% elif humidity1 - humidity2 < 0 %}
+        The humidity in {{ city1 }} is {{ abs_difference_in_humidity }} less than in {{ city2 }}.
+    {% else %}
+        The humidity in {{ city1 }} is the same as in {{ city2 }}.
+    {% endif %}
+        
     </p>
 
     <p>
-        The wind speed in [CITY1] is [AMOUNT] [GREATER/LESS] than in [CITY2].
+    {% if (wind_speed1 - wind_speed2) > 0 %}
+        The wind speed in {{ city1 }} is {{ abs_difference_wind_speed }} grater than in {{ city2 }}.
+    {% elif wind_speed1 - wind_speed2 < 0 %}
+        The wind speed in {{ city1 }} is {{ abs_difference_wind_speed }} less than in {{ city2 }}.
+    {% else %}
+        The wind speed in {{ city1 }} is the same as in {{ city2 }}
+    {% endif %}
     </p>
 
     <p>
-        The sun sets in [CITY1] [HOURS] hours [EARLIER/LATER] than in [CITY2].
+    {% if (sunset1 - sunset2) > 0 %}
+        The sun sets in {{ city1 }} {{ abs_difference_sunset }} hours earlier than in {{ city2 }}.
+    {% elif (sunset1 - sunset2) < 0 %}
+        The sun sets in {{ city1 }} {{ abs_difference_sunset }} hours later than in {{ city2 }}.
+    {% else %}
+        The sun sets in {{ city1 }} is at the same hour as in {{ city2 }}.
+    {% endif %}
     </p>
     
 </section>
